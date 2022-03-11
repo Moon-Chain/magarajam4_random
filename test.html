@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağara Jam#4 Random</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Arvo');
+
+        body {
+            background: rgb(25, 25, 33);
+        }
+
+        .raffle-roller {
+            height: 100px;
+            position: relative;
+            margin: 60px auto 30px auto;
+            width: 900px;
+        }
+
+        .raffle-roller-holder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100px;
+            width: 100%;
+        }
+
+        .raffle-roller-holder {
+            overflow: hidden;
+            border-radius: 2px;
+            border: 1px solid #3c3759;
+        }
+
+        .raffle-roller-holder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100px;
+            width: 100%;
+        }
+
+        .raffle-roller-container {
+            width: 9999999999999999999px;
+            max-width: 999999999999999999px;
+            height: 100px;
+            background: #191726;
+            margin-left: 0;
+            transition: all 8s cubic-bezier(.08, .6, 0, 1);
+        }
+
+        .raffle-roller-holder:before {
+            content: "";
+            position: absolute;
+            border: none;
+            z-index: 50;
+            width: 5px;
+            height: 100%;
+            left: 50%;
+            background: #d16266;
+        }
+
+        .item {
+            float: left;
+            display: inline-block;
+            margin: 4px 0px 0.5px 5px;
+            width: 85px;
+            height: 88px;
+            border: 1px solid #70677c;
+            background: #14202b;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .class_red_item {
+            border-bottom: 4px solid #EB4B4B;
+        }
+
+        img {
+            border: 0;
+            vertical-align: middle;
+        }
+
+        .winning-item {
+            border: 2px solid #66b233;
+            position: relative;
+            top: -1px;
+            border-bottom: 4px solid #66b233;
+        }
+
+        .inventory {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 100%;
+            padding: 10px 15px 6px;
+            height: auto;
+            border: 2px solid #1c3344;
+            background: #0e1a23;
+        }
+
+        .inventory>.item {
+            float: none;
+            cursor: pointer;
+            margin: 4px 2px 0.5px 2px;
+        }
+
+        .inventory>.item:hover {
+            background-color: #afafaf;
+        }
+
+        .inventory>.item:active {
+            position: relative;
+            border: 2px solid #356d27;
+            border-bottom: 4px solid #356d27;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="raffle-roller">
+                    <div class="raffle-roller-holder">
+                        <div class="raffle-roller-container" style="margin-left: 0px;">
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <span style="font-size: 25px;"><span style="color: green;" id="rolled">----</span>
+                        <br>
+                        <button id="baslat" class="btn btn-primary">Başlat</button>
+                </div>
+                <br>
+                <div class="inventory"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.min.js" charset="utf-8"></script>
+    <script>
+        function sound(src) {
+            this.sound = document.createElement("audio");
+            this.sound.src = src;
+            this.sound.setAttribute("preload", "auto");
+            this.sound.setAttribute("controls", "none");
+            this.sound.style.display = "none";
+            document.body.appendChild(this.sound);
+            this.play = function () {
+                this.sound.play();
+            }
+            this.stop = function () {
+                this.sound.pause();
+            }
+        }
+        var Bounce_Cartoon = new sound("assets/sounds/Bounce_Cartoon.wav");
+        var Stinger_Success_Funky_Pop = new sound("assets/sounds/Stinger_Success_Funky_Pop.mp3");
+        var items = [];
+        var c_items = [];
+        var troll = false;
+        items.push({
+            id: 0,
+            skin: "OVERSEER",
+            img: "https://img.itch.zone/aW1nLzgyMzIzNzEucG5n/315x250%23c/L%2FTEew.png",
+            link: "https://magarajam.com/jam/game/1051890438895567872"
+        });
+        items.push({
+            id: 1,
+            skin: "Alt EGO",
+            img: "https://img.itch.zone/aW1nLzgyMjQwMjUucG5n/315x250%23c/s6hL5w.png",
+            link: "https://magarajam.com/jam/game/1051879412707886080"
+        });
+        items.push({
+            id: 2,
+            skin: "Andarin",
+            img: "https://img.itch.zone/aW1nLzgyMTgyMjkucG5n/315x250%23c/MUPtKn.png",
+            link: "https://magarajam.com/jam/game/1051822924090049536"
+        });
+        items.push({
+            id: 3,
+            skin: "Cosmic Knight",
+            img: "https://img.itch.zone/aW1nLzgyMTgyMDkucG5n/315x250%23c/E9ux%2BQ.png",
+            link: "https://magarajam.com/jam/game/1051226241614480384"
+        });
+        items.push({
+            id: 4,
+            skin: "Farklı Biri",
+            img: "https://img.itch.zone/aW1nLzgyODQzNzEucG5n/315x250%23c/gvwjXr.png",
+            link: "https://magarajam.com/jam/game/1051894143824954368"
+        });
+        items.push({
+            id: 5,
+            skin: "Jammer Jammer",
+            img: "https://img.itch.zone/aW1nLzgyMjE2NTkucG5n/315x250%23c/DFG1tF.png",
+            link: "https://magarajam.com/jam/game/1051889972170195968"
+        });
+        items.push({
+            id: 6,
+            skin: "KunduraBoyacısı",
+            img: "https://img.itch.zone/aW1nLzgyMjA4NDAucG5n/315x250%23c/G5EO2Q.png",
+            link: "https://magarajam.com/jam/game/1051895080874411008"
+        });
+        items.push({
+            id: 7,
+            skin: "The H4cker",
+            img: "https://img.itch.zone/aW1nLzgyMzA1NDgucG5n/315x250%23c/ACx35P.png",
+            link: "https://magarajam.com/jam/game/1051889262401684480"
+        });
+
+        items.forEach(element => {
+            c_items.push(JSON.parse(JSON.stringify(element)));
+        });
+
+
+        var baslat_button = document.getElementById("baslat");
+        baslat_button.addEventListener("click", function () {
+            if (items.length > 0) {
+                generate();
+                baslat_button.disabled = true;
+                if(items.length == 1){
+                    baslat_button.innerHTML = "Mutlu akü 1 numara";
+                }
+            } else {
+                Swal.fire({
+                    title: "Bitti",
+                    text: "Mutlu akü 1 numara",
+                });
+            }
+        });
+
+
+        function addinventory(skin, skinimg, link) {
+            $('#rolled').html(skin);
+            var win_element = "<div class='item class_red_item' onclick='open_link(this)' data-link='" + link +
+                "' style='background-image: url(" + skinimg +
+                ")'></div>";
+            $(win_element).appendTo('.inventory');
+        }
+
+        function open_link(th) {
+            window.open(th.dataset.link, "_blank");
+        }
+
+        function generate() {
+            var select_rand = randomInt(0, items.length);
+            selected_item = JSON.parse(JSON.stringify(items[select_rand]));
+
+            $('.raffle-roller-container').css({
+                transition: "sdf",
+                "margin-left": "0px"
+            }, 10).html('');
+
+            screencoverimg = null;
+            if (select_rand == 0 && !troll) {
+                troll = true;
+                for (var i = 0; i < 101; i++) {
+                    screencoverimg = "assets/images/gulenadam.webp";
+                    element = '<div id="CardNumber' + i +
+                        '" class="item class_red_item" style="background-image:url(' +
+                        items[0].img + ');"></div>';
+                    $(element).appendTo('.raffle-roller-container');
+                }
+            } else {
+                for (var i = 0; i < 101; i++) {
+                    element = '<div id="CardNumber' + i +
+                        '" class="item class_red_item" style="background-image:url(' +
+                        items[0].img + ');"></div>';
+
+                    var randed = randomInt(0, items.length);
+                    element = '<div id="CardNumber' + i +
+                        '" class="item class_red_item" style="background-image:url(' +
+                        items[randed].img + ');"></div>';
+
+
+                    $(element).appendTo('.raffle-roller-container');
+                }
+            }
+
+
+            setTimeout(() => {
+                goRoll(selected_item.skin, selected_item.img, selected_item.link, screencoverimg);
+                setTimeout(function () {
+                    items.splice(select_rand, 1);
+                }, 500);
+            }, 1000);
+        }
+
+        function goRoll(skin, skinimg, link, screencoverimg = null) {
+            Bounce_Cartoon.play();
+            $('.raffle-roller-container').css({
+                transition: "all 8s cubic-bezier(.08,.6,0,1)"
+            });
+            screencover = screencoverimg != null ? screencoverimg : skinimg;
+            $('#CardNumber78').css({
+                "background-image": "url(" + screencover + ")"
+            });
+            setTimeout(function () {
+                baslat_button.disabled = false;
+                addinventory(skin, skinimg, link);
+                $('#CardNumber78').addClass('winning-item');
+
+                if (screencoverimg == null) {
+                    Swal.fire({
+                        title: skin,
+                        imageUrl: skinimg,
+                        imageAlt: skin,
+                        timer: 3000,
+                        showConfirmButton: false,
+                    });
+                    Stinger_Success_Funky_Pop.play();
+                } else {
+                    Swal.fire({
+                        title: "Sonunda " + skin + " geldi XD",
+                        html: '<video src="assets/videos/gulenadam.mp4" autoplay></video>',
+                        timer: 14000,
+                    });
+                }
+            }, 8500);
+            $('.raffle-roller-container').css('margin-left', '-6580px');
+
+        }
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+    </script>
+</body>
+
+</html>
