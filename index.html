@@ -71,7 +71,7 @@
             background: #d16266;
         }
 
-        .item {
+        ._item {
             float: left;
             display: inline-block;
             margin: 4px 0px 0.5px 5px;
@@ -88,7 +88,7 @@
             border-bottom: 4px solid #EB4B4B;
         }
 
-        img {
+        .box_img {
             border: 0;
             vertical-align: middle;
         }
@@ -110,17 +110,17 @@
             background: #0e1a23;
         }
 
-        .inventory>.item {
+        .inventory>._item {
             float: none;
             cursor: pointer;
             margin: 4px 2px 0.5px 2px;
         }
 
-        .inventory>.item:hover {
+        .inventory>._item:hover {
             background-color: #afafaf;
         }
 
-        .inventory>.item:active {
+        .inventory>._item:active {
             position: relative;
             border: 2px solid #356d27;
             border-bottom: 4px solid #356d27;
@@ -146,33 +146,33 @@
                 </div>
                 <br>
                 <div class="inventory">
-                    <div class="item class_red_item" onclick="open_link(this)"
+                    <div class="_item class_red_item" onclick="open_link(this)"
                         data-link="https://magarajam.com/game/1203263244781749248"
                         style="background-image: url(https://img.itch.zone/aW1nLzEwMDYzMDg2LnBuZw==/315x250%23c/iAYCV%2B.png)">
                     </div>
-                    <div class="item class_red_item" onclick="open_link(this)"
+                    <div class="_item class_red_item" onclick="open_link(this)"
                         data-link="https://magarajam.com/game/1203397945559352320"
                         style="background-image: url(https://img.itch.zone/aW1nLzEwMDY0NzYyLmpwZw==/315x250%23c/zXA3AR.jpg)">
                     </div>
-                    <div class="item class_red_item" onclick="open_link(this)"
+                    <div class="_item class_red_item" onclick="open_link(this)"
                         data-link="https://magarajam.com/game/1203422611950797824"
                         style="background-image: url(https://img.itch.zone/aW1nLzEwMDc1NzA2LnBuZw==/315x250%23c/hlIBHH.png)">
                     </div>
-                    <div class="item class_red_item" onclick="open_link(this)"
+                    <div class="_item class_red_item" onclick="open_link(this)"
                         data-link="https://magarajam.com/game/1203245272147166208"
                         style="background-image: url(https://img.itch.zone/aW1nLzEwMDg4NzYxLnBuZw==/315x250%23c/qWHKsH.png)">
                     </div>
-                    <div class="item class_red_item" onclick="open_link(this)"
+                    <div class="_item class_red_item" onclick="open_link(this)"
                         data-link="https://magarajam.com/game/1203284772088972288"
                         style="background-image: url(https://img.itch.zone/aW1nLzEwMDczODA1LmdpZg==/315x250%23c/K8fWlT.gif)">
                     </div>
 
-                    <div class="item class_red_item" onclick="open_link(this)"
+                    <div class="_item class_red_item" onclick="open_link(this)"
                         data-link="https://magarajam.com/game/1203435965457105920"
                         style="background-image: url(https://img.itch.zone/aW1nLzEwMDY2OTI1LnBuZw==/315x250%23c/mjCRjx.png)">
                     </div>
 
-                    <div class="item class_red_item" onclick="open_link(this)"
+                    <div class="_item class_red_item" onclick="open_link(this)"
                         data-link="https://magarajam.com/game/1203246633114928128"
                         style="background-image: url(https://img.itch.zone/aW1nLzEwMDYxNDMxLnBuZw==/315x250%23c/HyO315.png)">
                     </div>
@@ -200,6 +200,33 @@
             }
         }
     </script>
+
+    <script>
+
+        $(document).ready(function () {
+            uyari()
+        });
+
+        function uyari() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Uyarı',
+                text: 'Bu sayfa güncellenmiştir, güncel sayfaya git',
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'Git',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open("https://moonarctic.com/magarajam5_giris", "_blank");
+                    uyari()
+                }else{
+                    uyari()
+                }
+            })
+        }
+    </script>
+
+
     <script>
         var Bounce_Cartoon = new sound("assets/sounds/Bounce_Cartoon.wav");
         var Stinger_Success_Funky_Pop = new sound("assets/sounds/Stinger_Success_Funky_Pop.mp3");
@@ -591,7 +618,7 @@
 
         function addinventory(skin, skinimg, link) {
             $('#rolled').html(skin);
-            var win_element = "<div class='item class_red_item' onclick='open_link(this)' data-link='" + link +
+            var win_element = "<div class='_item class_red_item' onclick='open_link(this)' data-link='" + link +
                 "' style='background-image: url(" + skinimg +
                 ")'></div>";
             $(win_element).appendTo('.inventory');
@@ -616,19 +643,19 @@
             //     for (var i = 0; i < 101; i++) {
             //         screencoverimg = "assets/images/gulenadam.webp";
             //         element = '<div id="CardNumber' + i +
-            //             '" class="item class_red_item" style="background-image:url(' +
+            //             '" class="_item class_red_item" style="background-image:url(' +
             //             items[0].img + ');"></div>';
             //         $(element).appendTo('.raffle-roller-container');
             //     }
             // } else {
             for (var i = 0; i < 101; i++) {
                 element = '<div id="CardNumber' + i +
-                    '" class="item class_red_item" style="background-image:url(' +
+                    '" class="_item class_red_item" style="background-image:url(' +
                     items[0].img + ');"></div>';
 
                 var randed = randomInt(0, items.length);
                 element = '<div id="CardNumber' + i +
-                    '" class="item class_red_item" style="background-image:url(' +
+                    '" class="_item class_red_item" style="background-image:url(' +
                     items[randed].img + ');"></div>';
 
 
